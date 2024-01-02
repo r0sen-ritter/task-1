@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { IoMdArrowDropright } from "react-icons/io";
 import { MdArrowDropDown } from "react-icons/md";
-import Folder from './components/Folder';
 
 const App = () => {
   const [folders, setFolders] = useState([]);
@@ -69,11 +68,11 @@ const App = () => {
   };
 
   return (
-    <div>
+    <div class='mt-10'>
       {folders.map((folder, index) => (
         <Folder folder={folder} key={index} />
       ))}
-      <button onClick={() => addFolder()}>Add Folder</button>
+      <button onClick={() => addFolder()}>Add Folder to Root</button>
     </div>
   );
 };
