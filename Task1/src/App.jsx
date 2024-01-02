@@ -24,7 +24,7 @@ const App = () => {
     if (name) {
       const newFolder = { name, children: [], isOpen: false };
       if (parentFolder) {
-        const newFolders = JSON.parse(JSON.stringify(folders)); // Deep copy
+        const newFolders = JSON.parse(JSON.stringify(folders));
         const parentInState = findFolderInState(newFolders, parentFolder);
         if (parentInState) {
           parentInState.children.push(newFolder);
