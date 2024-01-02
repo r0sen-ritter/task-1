@@ -58,7 +58,7 @@ const App = () => {
         {folder.isOpen && (
           <>
             {folder.children.map((child, index) => (
-              <div style={{ paddingLeft: "3rem" }} key={index}>
+              <div style={{ paddingLeft: "3rem", border:"2px solid white", borderRadius:'15px' }} key={index}>
                 <Folder folder={child} />
               </div>
             ))}
