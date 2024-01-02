@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { IoMdArrowDropright } from "react-icons/io";
 import { MdArrowDropDown } from "react-icons/md";
+import Folder from './components/Folder';
 
 const App = () => {
   const [folders, setFolders] = useState([]);
@@ -37,7 +38,7 @@ const App = () => {
   };
 
   const toggleFolder = (folder) => {
-    const newFolders = JSON.parse(JSON.stringify(folders)); // Deep copy
+    const newFolders = JSON.parse(JSON.stringify(folders)); 
     const folderInState = findFolderInState(newFolders, folder);
     folderInState.isOpen = !folderInState.isOpen;
     setFolders(newFolders);
