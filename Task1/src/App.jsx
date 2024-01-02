@@ -20,7 +20,7 @@ const App = () => {
   };
 
   const addFolder = (parentFolder = null) => {
-    const name = prompt('Enter folder name');
+    const name = prompt('Enter new folders name');
     if (name) {
       const newFolder = { name, children: [], isOpen: false };
       if (parentFolder) {
@@ -36,6 +36,7 @@ const App = () => {
     }
   };
 
+  // Function to toggle a folder's open/close state
   const toggleFolder = (folder) => {
     const newFolders = JSON.parse(JSON.stringify(folders)); 
     const folderInState = findFolderInState(newFolders, folder);
@@ -43,20 +44,21 @@ const App = () => {
     setFolders(newFolders);
   };
 
+  //rendering folder
   const Folder = ({ folder }) => {
     const handleClick = () => {
       toggleFolder(folder);
     };
 
     return (
-      <div>
+      <div style={{margin:'2rem'}}>
         <div onClick={handleClick}>
           {folder.name} {folder.isOpen ? <MdArrowDropDown /> : <IoMdArrowDropright />}
         </div>
         {folder.isOpen && (
           <>
             {folder.children.map((child, index) => (
-              <div style={{ paddingLeft: "1.5rem" }} key={index}>
+              <div style={{ paddingLeft: "3rem" }} key={index}>
                 <Folder folder={child} />
               </div>
             ))}
@@ -68,7 +70,7 @@ const App = () => {
   };
 
   return (
-    <div class='mt-10'>
+    <div style={{margin:5}}>
       {folders.map((folder, index) => (
         <Folder folder={folder} key={index} />
       ))}
