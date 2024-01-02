@@ -5,15 +5,31 @@ import { MdArrowDropDown } from "react-icons/md";
 const App = () => {
   const [folders, setFolders] = useState([]);
 
+  const findFolderInState = (folders, folderToFind) => {
+    for (let folder of folders) {
+      if (folder.name === folderToFind.name) {
+        return folder;
+      } else if (folder.children.length > 0) {
+        const foundFolder = findFolderInState(folder.children, folderToFind);
+        if (foundFolder) {
+          return foundFolder;
+        }
+      }
+    }
+    return null;
+  };
+
   const addFolder = (parentFolder = null) => {
     const name = prompt('Enter folder name');
     if (name) {
       const newFolder = { name, children: [], isOpen: false };
       if (parentFolder) {
         const newFolders = JSON.parse(JSON.stringify(folders)); // Deep copy
-        const parentInState = newFolders.find(folder => folder.name === parentFolder.name);
-        parentInState.children.push(newFolder);
-        setFolders(newFolders);
+        const parentInState = findFolderInState(newFolders, parentFolder);
+        if (parentInState) {
+          parentInState.children.push(newFolder);
+          setFolders(newFolders);
+        }
       } else {
         setFolders(prevFolders => [...prevFolders, newFolder]);
       }
@@ -22,7 +38,7 @@ const App = () => {
 
   const toggleFolder = (folder) => {
     const newFolders = JSON.parse(JSON.stringify(folders)); // Deep copy
-    const folderInState = newFolders.find(f => f.name === folder.name);
+    const folderInState = findFolderInState(newFolders, folder);
     folderInState.isOpen = !folderInState.isOpen;
     setFolders(newFolders);
   };
